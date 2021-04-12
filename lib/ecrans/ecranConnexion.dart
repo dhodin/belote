@@ -19,7 +19,7 @@ class EcranConnexion extends StatelessWidget {
                 child: CircleAvatar(
                   child: ClipOval(
                     child: Image(
-                      image: AssetImage('assets/images/belote.jpeg'),
+                      image: AssetImage('assets/images/Belote.png'),
                     ),
                   ),
                 ),
@@ -34,7 +34,7 @@ class EcranConnexion extends StatelessWidget {
                 ),
                 onPressed: () {
                   Provider.of<Profil>(context, listen: false)
-                      .initialiseProfil();
+                      .chargeParties();
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/accueil', (route) => false);
                   print("Connection");

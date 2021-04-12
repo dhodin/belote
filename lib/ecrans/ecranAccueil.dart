@@ -1,108 +1,95 @@
+import 'package:belote/classes/partie.dart';
+import 'package:belote/classes/profil.dart';
+import 'package:belote/variables/widgetCommuns.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-class EcranAccueil extends StatelessWidget {
+/// Affichage de la page contenant la liste des parties
+class EcranAccueil extends StatefulWidget {
+  @override
+  _EcranAccueilState createState() => _EcranAccueilState();
+}
+
+class _EcranAccueilState extends State<EcranAccueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.account_circle,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, "/profil");
-          },
-        ),
         title: Text("Mes parties"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
+      bottomNavigationBar: CommunBottomAppBar(),
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text('Nouvelle partie'),
+        icon: Icon(
+          FontAwesomeIcons.plusSquare,
         ),
         onPressed: () {
           Navigator.pushNamed(context, '/nouvelle_partie');
         },
       ),
-      body: ListView(
+      body: Column(
         children: [
-          itemListePartie(
-            titre: "Partie en cours...",
-            ouvrir: true,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
-          ),
-          itemListePartie(
-            titre: "Partie terminée...",
-            ouvrir: false,
-            contextTransfert: context,
+          // Parties
+          Expanded(
+            child: _ListeParties(),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget itemListePartie(
-      {String titre = "...", bool ouvrir = true, contextTransfert}) {
-    return Card(
-      child: ListTile(
-        onTap: () {
-          ouvrir
-              ? Navigator.pushNamed(contextTransfert, '/partie')
-              : print("Supprimer la partie");
-        },
-        leading: ouvrir ? Icon(Icons.arrow_forward_ios) : null,
-        title: Text(titre),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('David / Mickael - Laurent / Alaine'),
-            Text('1082 - 36')
-          ],
-        ),
-        isThreeLine: true,
-        dense: false,
-        trailing: ouvrir ? null : Icon(Icons.delete),
+/// Liste les parties jouées
+class _ListeParties extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var parties = context.watch<Profil>();
+
+    return ListView.builder(
+      itemCount: parties.listeParties.length,
+      itemBuilder: (context, index) => _itemListePartie(
+        partie: parties.listeParties[parties.listeParties.length - 1 - index],
+        contextTransfert: context,
       ),
     );
   }
+}
+
+/// Affiche une partie
+Widget _itemListePartie(
+    {required Partie partie, required BuildContext contextTransfert}) {
+  var afficheDate = partie.datePartie.day.toString() +
+      "/" +
+      partie.datePartie.month.toString() +
+      "/" +
+      partie.datePartie.year.toString() +
+      " - " +
+      partie.datePartie.hour.toString() +
+      ":" +
+      partie.datePartie.minute.toString();
+  return Card(
+    child: ListTile(
+      onTap: () {
+        partie.partieEnCours
+            ? Navigator.pushNamed(contextTransfert, '/partie')
+            : print("Supprimer la partie");
+      },
+      title: Text(afficheDate),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(partie.nomEquipe1 + " - " + partie.nomEquipe2),
+          Text(partie.pointsEquipe1.toString() +
+              " - " +
+              partie.pointsEquipe2.toString()),
+        ],
+      ),
+      isThreeLine: true,
+      dense: false,
+      trailing: partie.partieEnCours
+          ? Icon(FontAwesomeIcons.folderOpen)
+          : Icon(FontAwesomeIcons.trashAlt),
+    ),
+  );
 }

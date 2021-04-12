@@ -19,7 +19,7 @@ class EcranProfil extends StatelessWidget {
               radius: 100.0,
               child: ClipOval(
                 child: Image(
-                  image: AssetImage('assets/images/belote.jpeg'),
+                  image: AssetImage('assets/images/test.gif'),
                 ),
               ),
             ),

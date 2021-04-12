@@ -3,10 +3,13 @@ import 'package:belote/classes/mene.dart';
 class Partie {
   // Information relative aux détails de la partie
   int identifiantPartie = 0;
+  DateTime datePartie = DateTime.now();
 
   List<Mene> menes = [];
   bool partieEnNombreDePoints = false;
   bool partieEnNombreDeMenes = false;
+
+  int _meneActive = -1;
 
   int valeurFinPartie = 0;
 
@@ -26,15 +29,25 @@ class Partie {
   // Etat de la partie
   bool partieEnCours = true;
 
-  Partie(
-      {nomJoueurPartie1 = "joueur 1",
-      nomJoueurPartie2 = "joueur 2",
-      nomJoueurPartie3 = "joueur 3",
-      nomJoueurPartie4 = "joueur 4"}) {
+  /// Initialise une partie à partir de 0
+  Partie(String nomJoueurPartie1, String nomJoueurPartie2,
+      String nomJoueurPartie3, nomJoueurPartie4) {
+    // Initialise le nom des joueurs et des équipes
     nomJoueur1 = nomJoueurPartie1;
     nomJoueur2 = nomJoueurPartie2;
     nomJoueur3 = nomJoueurPartie3;
     nomJoueur4 = nomJoueurPartie4;
+    nomEquipe1 = nomJoueur1 + " / " + nomJoueur2;
+    nomEquipe2 = nomJoueur3 + " / " + nomJoueur4;
+  }
+
+  /// Initialise une partie à partir d'un clone
+  Partie.clone(Partie clonePartie)
+      : nomJoueur1 = clonePartie.nomJoueur1,
+        nomJoueur2 = clonePartie.nomJoueur2,
+        nomJoueur3 = clonePartie.nomJoueur3,
+        nomJoueur4 = clonePartie.nomJoueur4 {
+    print("création du clone");
   }
 
   void ajouteMene() {}
