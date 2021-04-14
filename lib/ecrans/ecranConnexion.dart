@@ -34,10 +34,11 @@ class EcranConnexion extends StatelessWidget {
                 ),
                 onPressed: () {
                   Provider.of<Profil>(context, listen: false)
-                      .chargeParties();
+                      .initializeProfil();
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/accueil', (route) => false);
-                  print("Connection");
+                  // TODO : A supprimer à terme
+                  print("Connection Ok");
                 },
               ),
             )

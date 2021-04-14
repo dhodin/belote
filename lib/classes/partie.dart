@@ -2,6 +2,8 @@ import 'package:belote/classes/mene.dart';
 
 class Partie {
   // Information relative aux détails de la partie
+  int? id;
+
   int identifiantPartie = 0;
   DateTime datePartie = DateTime.now();
 
@@ -51,4 +53,30 @@ class Partie {
   }
 
   void ajouteMene() {}
+
+  /// Classes d'enregistrement des données
+  Partie.fromMap(Map<String, dynamic> res)
+      : id = res["id"],
+        nomJoueur1 = res["nomJoueur1"],
+        nomJoueur2 = res["nomJoueur2"],
+        nomJoueur3 = res["nomJoueur3"],
+        nomJoueur4 = res["nomJoueur4"],
+        nomEquipe1 = res["nomEquipe1"],
+        nomEquipe2 = res["nomEquipe2"],
+        pointsEquipe1 = res["pointsEquipe1"],
+        pointsEquipe2 = res["pointsEquipe2"];
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'nomJoueur1': nomJoueur1,
+      'nomJoueur2': nomJoueur2,
+      'nomJoueur3': nomJoueur3,
+      'nomJoueur4': nomJoueur4,
+      'nomEquipe1': nomEquipe1,
+      'nomEquipe2': nomEquipe2,
+      'pointsEquipe1': pointsEquipe1,
+      'pointsEquipe2': pointsEquipe2
+    };
+  }
 }

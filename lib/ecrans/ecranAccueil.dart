@@ -45,7 +45,6 @@ class _ListeParties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var parties = context.watch<Profil>();
-
     return ListView.builder(
       itemCount: parties.listeParties.length,
       itemBuilder: (context, index) => _itemListePartie(
@@ -71,9 +70,15 @@ Widget _itemListePartie(
   return Card(
     child: ListTile(
       onTap: () {
-        partie.partieEnCours
-            ? Navigator.pushNamed(contextTransfert, '/partie')
-            : print("Supprimer la partie");
+        if (partie.partieEnCours) {
+          Provider.of<Profil>(contextTransfert, listen: false)
+              .changePartieActive(partie);
+          Navigator.pushNamed(contextTransfert, '/partie');
+        } else {
+          Provider.of<Profil>(contextTransfert, listen: false)
+              .supprimePartie(partie);
+          
+        }
       },
       title: Text(afficheDate),
       subtitle: Column(
