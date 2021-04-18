@@ -10,7 +10,7 @@ class Profil with ChangeNotifier {
   String _nomProfil = "Nom joueur";
   bool _synchronisatioData = false;
   List<Partie> listeParties = [];
-  Partie? _partieActive;
+  Partie partieActive = Partie("1", "2", "3", "4");
 
   Profil() {
     print("Démarrage de l'application");
@@ -49,7 +49,7 @@ class Profil with ChangeNotifier {
     // Enregistre la partie
     int result = await stockageLocal.insertPartie(nouvellePartie);
     nouvellePartie.id = result;
-    _partieActive = nouvellePartie;
+    partieActive = nouvellePartie;
     listeParties.add(nouvellePartie);
     print("Identifiant de la partie " + result.toString());
     notifyListeners();
@@ -63,10 +63,14 @@ class Profil with ChangeNotifier {
   }
 
   /// Actualise le numéro de la partie active
-  void changePartieActive(Partie partieActive) =>
-      _partieActive = partieActive;
+  void changePartieActive(Partie nouvellepartieActive) =>
+      partieActive = nouvellepartieActive;
 
-  void ajouterMene() {
-    _partieActive!.ajouteMene();
+  /// Actualise le numéro de la partie active
+  void ajouterMene(int ptEq1, int ptEq2, int beloteEq1, int beloteEq2, bool preneurEq1, bool preneurEq2) {
+    partieActive.ajouteMene(ptEq1, ptEq2, beloteEq1, beloteEq2, preneurEq1, preneurEq2);
+    notifyListeners();
   }
+
+
 }

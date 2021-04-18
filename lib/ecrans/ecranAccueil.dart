@@ -44,11 +44,11 @@ class _EcranAccueilState extends State<EcranAccueil> {
 class _ListeParties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var parties = context.watch<Profil>();
+    var profil = context.watch<Profil>();
     return ListView.builder(
-      itemCount: parties.listeParties.length,
+      itemCount: profil.listeParties.length,
       itemBuilder: (context, index) => _itemListePartie(
-        partie: parties.listeParties[parties.listeParties.length - 1 - index],
+        partie: profil.listeParties[profil.listeParties.length - 1 - index],
         contextTransfert: context,
       ),
     );

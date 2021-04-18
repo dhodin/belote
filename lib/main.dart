@@ -1,5 +1,6 @@
 import 'package:belote/classes/profil.dart';
 import 'package:belote/ecrans/ecranConnexion.dart';
+import 'package:belote/ecrans/ecranMene.dart';
 import 'package:belote/ecrans/ecranProfil.dart';
 import 'package:flutter/material.dart';
 import 'package:belote/ecrans/ecranAccueil.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => EcranConnexion(),
           '/accueil': (context) => EcranAccueil(),
           '/partie': (context) => EcranPartie(),
+          '/mene': (context) => EcranMene(),
           '/nouvelle_partie': (context) => EcranNouvellePartie(),
           '/profil': (context) => EcranProfil(),
           '/a_propos': (context) => EcranApropos(),

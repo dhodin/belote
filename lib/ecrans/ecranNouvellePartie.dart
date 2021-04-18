@@ -112,9 +112,9 @@ class _EcranNouvellePartieState extends State<EcranNouvellePartie> {
                 onPressed: () {
                   print("créer");
                   Provider.of<Profil>(context, listen: false).ajoutePartie(_joueur1, _joueur2, _joueur3, _joueur4);
-                  Navigator.pop(context);
-                  /* Navigator.pushNamedAndRemoveUntil(
-                      context, '/partie', ModalRoute.withName('/accueil')); */
+                  //Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/partie', ModalRoute.withName('/accueil'));
                 },
                 child: Text("Démarrer..."),
               ),

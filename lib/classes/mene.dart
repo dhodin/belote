@@ -15,6 +15,7 @@ class Mene {
   int pointsCalculEquipe2 = 0;
 
   int pointsBalotage = 0;
+  int pointsBalotagePartiePrecedente = 0;
 
   int annonceEquipe1 = 0;
   int annonceEquipe2 = 0;
@@ -28,16 +29,17 @@ class Mene {
     this.preneurEquipe2 = false,
     this.annonceEquipe1 = 0,
     this.annonceEquipe2 = 0,
+    this.pointsBalotagePartiePrecedente = 0,
   });
 
-  void calculeScore(int balotage) {
+  void calculeScore() {
     // Test capot
     if ((pointsEquipe1 == 162) || (pointsEquipe2 == 162)) {
       // Capot
       pointsCalculEquipe1 =
-          (pointsEquipe1 == 162) ? (252 + beloteEquipe1) : beloteEquipe1;
+          (pointsEquipe1 == 162) ? (252 + beloteEquipe1 + pointsBalotagePartiePrecedente) : beloteEquipe1;
       pointsCalculEquipe2 =
-          (pointsEquipe2 == 162) ? (252 + beloteEquipe2) : beloteEquipe2;
+          (pointsEquipe2 == 162) ? (252 + beloteEquipe2 + pointsBalotagePartiePrecedente) : beloteEquipe2;
     } else {
       // Pas de capot
       int pointsTotalEquipe1 = pointsEquipe1 + beloteEquipe1;
@@ -54,21 +56,21 @@ class Mene {
             (preneurEquipe1 == true) ? beloteEquipe1 : (82 + beloteEquipe1);
         pointsTotalEquipe2 =
             (preneurEquipe2 == true) ? beloteEquipe2 : (82 + beloteEquipe2);
-        pointsBalotage = 82;
+        pointsBalotage = 81 + pointsBalotagePartiePrecedente;
       } else if (testGagnant == 1) {
         // Gagné par l'équipe1
         pointsCalculEquipe1 =
-            (preneurEquipe1 == true) ? pointsCalculEquipe1 : beloteEquipe1;
+            (preneurEquipe1 == true) ? (pointsCalculEquipe1 + pointsBalotagePartiePrecedente) : beloteEquipe1;
         pointsCalculEquipe2 = (preneurEquipe1 == true)
             ? pointsCalculEquipe2
-            : (162 + beloteEquipe2);
+            : (162 + beloteEquipe2 + pointsBalotagePartiePrecedente);
       } else {
         // Gagné par l'équipe 2
         pointsCalculEquipe2 =
-            (preneurEquipe2 == true) ? pointsCalculEquipe2 : beloteEquipe2;
+            (preneurEquipe2 == true) ? (pointsCalculEquipe2 + pointsBalotagePartiePrecedente) : beloteEquipe2;
         pointsCalculEquipe1 = (preneurEquipe2 == true)
             ? pointsCalculEquipe1
-            : (162 + beloteEquipe1);
+            : (162 + beloteEquipe1 + pointsBalotagePartiePrecedente);
       }
     }
   }

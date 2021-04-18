@@ -39,8 +39,8 @@ class Partie {
     nomJoueur2 = nomJoueurPartie2;
     nomJoueur3 = nomJoueurPartie3;
     nomJoueur4 = nomJoueurPartie4;
-    nomEquipe1 = nomJoueur1 + " / " + nomJoueur2;
-    nomEquipe2 = nomJoueur3 + " / " + nomJoueur4;
+    nomEquipe1 = nomJoueurPartie1 + " / " + nomJoueurPartie2;
+    nomEquipe2 = nomJoueurPartie3 + " / " + nomJoueurPartie4;
   }
 
   /// Initialise une partie à partir d'un clone
@@ -52,7 +52,18 @@ class Partie {
     print("création du clone");
   }
 
-  void ajouteMene() {}
+  void ajouteMene(int ptEq1, int ptEq2, int beloteEq1, int beloteEq2, bool preneurEq1, bool preneurEq2) {
+    Mene nouvelleMene;
+    // S'il existait déjà une mène, alors prendre en compte le résultat précédent (balotage)
+    if(menes.length == 0) {
+      nouvelleMene = Mene(pointsEquipe1: ptEq1,pointsEquipe2: ptEq2, beloteEquipe1: beloteEq1, beloteEquipe2: beloteEq2, preneurEquipe1: preneurEq1, preneurEquipe2: preneurEq2, annonceEquipe1: 0, annonceEquipe2: 0, pointsBalotagePartiePrecedente: 0);
+    } else {
+      nouvelleMene = Mene(pointsEquipe1: ptEq1,pointsEquipe2: ptEq2, beloteEquipe1: beloteEq1, beloteEquipe2: beloteEq2, preneurEquipe1: preneurEq1, preneurEquipe2: preneurEq2, annonceEquipe1: 0, annonceEquipe2: 0, pointsBalotagePartiePrecedente: menes[menes.length - 1].pointsBalotage);
+    }
+    // Démarre la calcul du score
+    nouvelleMene.calculeScore();
+    menes.add(nouvelleMene);
+  }
 
   /// Classes d'enregistrement des données
   Partie.fromMap(Map<String, dynamic> res)
