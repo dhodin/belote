@@ -104,9 +104,9 @@ Widget _itemListeMenes(
           
         } */
       },
-      title: Text(mene.pointsEquipe1.toString() +
+      title: Text(mene.pointsCalculEquipe1.toString() +
           " - " +
-          mene.pointsEquipe2.toString()),
+          mene.pointsCalculEquipe2.toString()),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

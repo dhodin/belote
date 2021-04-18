@@ -52,25 +52,25 @@ class Mene {
       // Calcul des points
       if (testGagnant == 0) {
         // Balotage
-        pointsTotalEquipe1 =
+        pointsCalculEquipe1 =
             (preneurEquipe1 == true) ? beloteEquipe1 : (82 + beloteEquipe1);
-        pointsTotalEquipe2 =
+        pointsCalculEquipe2 =
             (preneurEquipe2 == true) ? beloteEquipe2 : (82 + beloteEquipe2);
         pointsBalotage = 81 + pointsBalotagePartiePrecedente;
       } else if (testGagnant == 1) {
         // Gagné par l'équipe1
         pointsCalculEquipe1 =
-            (preneurEquipe1 == true) ? (pointsCalculEquipe1 + pointsBalotagePartiePrecedente) : beloteEquipe1;
+            (preneurEquipe1 == true) ? (pointsTotalEquipe1 + pointsBalotagePartiePrecedente) : (162 + beloteEquipe1+ pointsBalotagePartiePrecedente);
         pointsCalculEquipe2 = (preneurEquipe1 == true)
-            ? pointsCalculEquipe2
-            : (162 + beloteEquipe2 + pointsBalotagePartiePrecedente);
+            ? pointsTotalEquipe2
+            : beloteEquipe2;
       } else {
         // Gagné par l'équipe 2
         pointsCalculEquipe2 =
-            (preneurEquipe2 == true) ? (pointsCalculEquipe2 + pointsBalotagePartiePrecedente) : beloteEquipe2;
+            (preneurEquipe2 == true) ? (pointsTotalEquipe2 + pointsBalotagePartiePrecedente) : (162 + beloteEquipe2 + pointsBalotagePartiePrecedente);
         pointsCalculEquipe1 = (preneurEquipe2 == true)
-            ? pointsCalculEquipe1
-            : (162 + beloteEquipe1 + pointsBalotagePartiePrecedente);
+            ? pointsTotalEquipe1
+            : beloteEquipe1;
       }
     }
   }
